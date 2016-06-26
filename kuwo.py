@@ -93,7 +93,7 @@ def run():
 		artistId_arr = getartistIds_with_prefix_pnIndex(prefix,pnIndex)
 		for artistId in artistId_arr:
 			artist_pnIndex_top = get_pnIndex_of_single_artist(artistId)
-			if(artist_pnIndex_top == '') 
+			if(artist_pnIndex_top == ''): 
 				continue
 			artist_pnIndex_top = int(artist_pnIndex_top)
 			index_arr = range(artist_pnIndex_top)
