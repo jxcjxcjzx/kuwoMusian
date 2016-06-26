@@ -12,10 +12,16 @@ from bs4 import BeautifulSoup
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 
-def get_hot_singer_url():
-  ''' get url of all singers'''
-	kuwo_music_url = 'http://www.kuwo.cn/artist/index';
-	html = requests.get(kuwo_music_url,timeout=20).text;
-	soup = BeautifulSoup(html);
-	li_url_list = [];
-	ul_level_list = soup.
+
+
+def array_test():
+	index = 10
+	arr = range(index)
+	str_arr = map(str,arr)
+	print str_arr
+
+
+
+if __name__ == "__main__":
+	array_test()
+
