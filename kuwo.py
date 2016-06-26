@@ -28,7 +28,7 @@ def analyze_single_page_with_artistId_pnIndex(artistId,pnIndex):
 		if not li_str.find('a'):
 			continue
 		total_singer_set.add( li_str.find_all("div",{"class":"name"})[0].text   + " : " + li_str.find_all("div",{"class":"artist"})[0].text + " : " +  li_str.a['href'])
-	print len("grab : "+total_singer_set+" songs.. ")
+	print "grab : "+total_singer_set+" songs.. "
 	codecs.open('total_singer_url.txt', mode='ab', encoding='utf-8').writelines([ item+'\n' for item in total_singer_set]);
 
 def get_pnIndex_of_single_artist(artistId):
@@ -63,12 +63,24 @@ def getartistIds_with_prefix_pnIndex(prefix,pnIndex):
 	url = baseUrl+categoryFragment+"&"+prefixFragment+"&"+pnIndexFragment;
 	html = requests.get(url,timeout=20).text;
 	soup = BeautifulSoup(html);
-	
-	return ;
+	li_url_list = [];
+	ul_level_list = soup.find_all('ul', class_='artistBox')[0]
+	li_url_list.extend(ul_level_list.find_all("div",{"class":"artistTop"}))
+        total_singer_set =set()
+	#print  len(li_url_list)
+        for li_str in li_url_list:
+		if not li_str.find('a'):
+			continue;
+		url =  "http://www.kuwo.cn"  +  li_str.a['href']
+		html = requests.get(url,timeout=20).text;
+		soup = BeautifulSoup(html);
+		print soup.find_all("div",{"class":"artistTop"})[0].attrs['data-artistid']	
+		total_singer_set.add(soup.find_all("div",{"class":"artistTop"})[0].attrs['data-artistid'])		
+	# the total_singer_set   to be return.
 	
 
 
 
 
 if __name__ == "__main__":
-	get_pnIndex_of_single_prefix('J')
+	getartistIds_with_prefix_pnIndex("A","0")
