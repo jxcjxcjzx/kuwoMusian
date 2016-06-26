@@ -75,14 +75,17 @@ def getartistIds_with_prefix_pnIndex(prefix,pnIndex):
 		url =  "http://www.kuwo.cn"  +  li_str.a['href']
 		html = requests.get(url,timeout=20).text
 		soup = BeautifulSoup(html)
-		print soup.find_all("div",{"class":"artistTop"})[0].attrs['data-artistid']	
-		total_singer_set.add(soup.find_all("div",{"class":"artistTop"})[0].attrs['data-artistid'])		
+		# add length check first
+		if(len(soup.find_all("div",{"class":"artistTop"}))>0){
+			print soup.find_all("div",{"class":"artistTop"})[0].attrs['data-artistid']	
+			total_singer_set.add(soup.find_all("div",{"class":"artistTop"})[0].attrs['data-artistid'])		
+		}
 	# the total_singer_set   to be return.
 	return total_singer_set	
 
 
 def run():
-	prefix = "D"
+	prefix = "G"
 	pnIndex_top = get_pnIndex_of_single_prefix(prefix)
 	pnIndex_top = int(pnIndex_top)
 	arr = range(pnIndex_top)
