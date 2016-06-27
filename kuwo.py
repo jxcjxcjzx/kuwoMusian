@@ -65,6 +65,8 @@ def getartistIds_with_prefix_pnIndex(prefix,pnIndex):
 	html = requests.get(url,timeout=20).text
 	soup = BeautifulSoup(html)
 	li_url_list = []
+	if(len(soup.find_all('ul',class_="artistBox"))<1):
+		return set()
 	ul_level_list = soup.find_all('ul', class_='artistBox')[0]
 	li_url_list.extend(ul_level_list.find_all("div",{"class":"artistTop"}))
         total_singer_set =set()
@@ -84,7 +86,7 @@ def getartistIds_with_prefix_pnIndex(prefix,pnIndex):
 
 
 def run():
-	prefix = "G"
+	prefix = "Z"
 	pnIndex_top = get_pnIndex_of_single_prefix(prefix)
 	pnIndex_top = int(pnIndex_top)
 	arr = range(pnIndex_top)
